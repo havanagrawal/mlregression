@@ -1,0 +1,10 @@
+# Eclipse generated files
+.cache-main
+.cache-tests
+.classpath
+.project
+.settings/
+
+# Project generated files
+bin/
+
