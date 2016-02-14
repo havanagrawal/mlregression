@@ -29,10 +29,11 @@ class Matrix(val mat: Seq[Seq[Double]]) {
    *
    * The dummy implicit is required to avoid compiler problems with type erasure
    * TODO: Dimension checks
+   * TODO: Handle empty sequences
    */
   def this(colVectors: Seq[ColumnVector])(implicit d: DummyImplicit) = {
     this(
-      (0 until colVectors.length).map { rowIndex =>
+      (0 until colVectors.head.length).map { rowIndex =>
         colVectors.map { x =>
           x.vec(rowIndex)
         }.toSeq
@@ -70,9 +71,9 @@ class Matrix(val mat: Seq[Seq[Double]]) {
    * TODO: Dimension checks
    */
   def prepend(column: ColumnVector) = {
-    (0 until column.length).map{i =>
+    new Matrix((0 until column.length).map{i =>
       Seq(column.vec(i)) ++ mat(i)
-    }
+    })
   }
   
   /**
@@ -95,5 +96,15 @@ class Matrix(val mat: Seq[Seq[Double]]) {
     else {
       None
     }
+  }
+  
+  def column(index: Int) = {
+    new ColumnVector(mat.map{row =>
+      row(index)
+    })
+  }
+  
+  def prettyPrint() = {
+    mat.map(row => row.mkString(" ")).mkString("\n")
   }
 }

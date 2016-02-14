@@ -60,6 +60,10 @@ class ColumnVector(val vec: Seq[Double]) {
   override def toString() = {
     vec.toString()
   }
+  
+  def mkString(separator: String) = {
+    vec.mkString(separator)
+  }
 }
 
 object ColumnVector {
